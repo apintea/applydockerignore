@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"flag"
-	"reflect"
 
 	"./dockerignore"
 	"./fileutils"
@@ -26,7 +25,6 @@ func main() {
 	fmt.Printf("Will apply .dockerignore on path %v ( %v )\n", root, cwd)
 	file, dockerignoreerr := os.Open(".dockerignore")
 	check(dockerignoreerr)
-	fmt.Println(reflect.TypeOf(file))
 
 	readDockerIgnore(file)
 
