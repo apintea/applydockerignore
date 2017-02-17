@@ -26,7 +26,7 @@ func main() {
 	file, dockerignoreerr := os.Open(".dockerignore")
 	check(dockerignoreerr)
 
-	readDockerIgnore(file, err)
+	readDockerIgnore(file)
 
 	filepath.Walk(root, visit)
 }
@@ -37,7 +37,8 @@ func check(err error) {
     }
 }
 
-func readDockerIgnore(file *os.File, err error) {
+func readDockerIgnore(file *os.File) {
+	var err error
 	excludes, err = dockerignore.ReadAll(file)
 	check(err)
 	fmt.Printf("Patterns are %v\n", excludes)
