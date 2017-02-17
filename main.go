@@ -26,17 +26,21 @@ func main() {
 	file, dockerignoreerr := os.Open(".dockerignore")
 	check(dockerignoreerr)
 
-	excludes, err = dockerignore.ReadAll(file)
-	check(err)
-	fmt.Printf("Patterns are %v\n",excludes)
+	readDockerIgnore(file)
 
-	filepath.Walk(root, visit)
+	filepath.Walk(root, Visit)
 }
 
 func check(err error) {
     if err != nil {
         panic(err)
     }
+}
+
+func readDockerIgnore(file) {
+	excludes, err = dockerignore.ReadAll(file)
+	check(err)
+	fmt.Printf("Patterns are %v\n",excludes)
 }
 
 func isDirectory(path string) string {
@@ -49,7 +53,7 @@ func isDirectory(path string) string {
 	}
 }
 
-func visit(path string, f os.FileInfo, err error) error {
+func Visit(path string, f os.FileInfo, err error) error {
 	rm, err := fileutils.Matches(path, excludes)
 	check(err)
 	if rm {
