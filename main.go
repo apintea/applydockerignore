@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"flag"
 
-	"./dockerignore"
-	"./fileutils"
+	"github.com/docker/docker/builder/dockerignore"
+	"github.com/docker/docker/pkg/fileutils"
 )
 
 var excludes []string
