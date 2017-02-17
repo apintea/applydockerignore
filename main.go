@@ -55,8 +55,6 @@ func isDirectory(path string) string {
 
 func visit(path string, f os.FileInfo, err error) error {
 	rm, err := fileutils.Matches(path, excludes)
-	fmt.Println(rm)
-	fmt.Println(" for " + path)
 	check(err)
 	if rm {
 		fmt.Printf("Removing %v %v\n", isDirectory(path), path)
