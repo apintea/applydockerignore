@@ -5,9 +5,10 @@ import (
 	"os"
 	"path/filepath"
 	"flag"
+	"reflect"
 
-	"github.com/docker/docker/builder/dockerignore"
-	"github.com/docker/docker/pkg/fileutils"
+	"./dockerignore"
+	"./fileutils"
 )
 
 var excludes []string
@@ -25,6 +26,7 @@ func main() {
 	fmt.Printf("Will apply .dockerignore on path %v ( %v )\n", root, cwd)
 	file, dockerignoreerr := os.Open(".dockerignore")
 	check(dockerignoreerr)
+	fmt.Println(reflect.TypeOf(file))
 
 	readDockerIgnore(file)
 
@@ -37,8 +39,8 @@ func check(err error) {
     }
 }
 
-func readDockerIgnore(file) {
-	excludes, err = dockerignore.ReadAll(file)
+func readDockerIgnore(file *os.File) {
+	excludes, err := dockerignore.ReadAll(file)
 	check(err)
 	fmt.Printf("Patterns are %v\n",excludes)
 }
