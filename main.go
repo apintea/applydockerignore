@@ -28,7 +28,7 @@ func main() {
 
 	readDockerIgnore(file)
 
-	filepath.Walk(root, Visit)
+	filepath.Walk(root, visit)
 }
 
 func check(err error) {
@@ -53,7 +53,7 @@ func isDirectory(path string) string {
 	}
 }
 
-func Visit(path string, f os.FileInfo, err error) error {
+func visit(path string, f os.FileInfo, err error) error {
 	rm, err := fileutils.Matches(path, excludes)
 	check(err)
 	if rm {
